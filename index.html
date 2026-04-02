@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Итерируемые объекты в JavaScript - Полное задание</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section {
+            background: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #333;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .section h3 {
+            color: #666;
+            margin-top: 15px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 10px 0;
+        }
+        td, th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .inputs-container {
+            margin: 10px 0;
+        }
+        .inputs-container input {
+            margin: 5px;
+            padding: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .output {
+            background-color: #f9f9f9;
+            border-left: 4px solid #4CAF50;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        .task {
+            background-color: #e7f3ff;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Итерируемые объекты в JavaScript</h1>
+        
+        <div class="section">
+            <h2>№1⊗jsSpItIO - Итерируемые объекты</h2>
+            <div class="task">
+                <p><strong>Задача:</strong> Приведите примеры итерируемых объектов (массивы, Map, Set, строки, NodeList)</p>
+                <button onclick="demonstrateIterable()">Показать примеры</button>
+                <div id="iterableOutput" class="output"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>№1⊗jsSpItFn - Проверка функции итератора</h2>
+            <div class="task">
+                <p><strong>Задача:</strong> Проверьте наличие Symbol.iterator у разных объектов</p>
+                <button onclick="checkIteratorFunction()">Проверить итераторы</button>
+                <div id="iteratorFnOutput" class="output"></div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>№1⊗jsSpItInv - Вызовы итератора</h2>
+            <div class="task">
+                <p><strong>№1:</strong> Итератор коллекции Map</p>
+                <button onclick="iterateMap()">Перебрать Map</button>
+                
+                <p><strong>№2:</strong> Итератор NodeList</p>
+                <button onclick="iterateNodeList()">Перебрать NodeList</button>
+                
+                <p><strong>№3:</strong> Итератор HTMLCollection</p>
+                <button onclick="iterateHTMLCollection()">Перебрать HTMLCollection</button>
+                
+                <div id="iteratorInvOutput" class="output"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>№1⊗jsSpItGn - Генераторы</h2>
+            <div class="task">
+                <p><strong>Задача:</strong> Создайте итератор от 5 до 1</p>
+                <button onclick="testGenerator5to1()">Запустить генератор</button>
+                <div id="generatorOutput" class="output"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>№1-5⊗jsSpItGL - Циклы в генераторах</h2>
+            <div class="task">
+                <p><strong>№1:</strong> Генератор от 10 до 0</p>
+                <button onclick="testGenerator10to0()">Запустить</button>
+                
+                <p><strong>№2:</strong> Генератор с уменьшением до 0</p>
+                <button onclick="testDecrementGenerator()">Уменьшать число 10</button>
+                
+                <p><strong>№3:</strong> Генератор с делением на 2</p>
+                <button onclick="testDivideGenerator()">Делить число 100</button>
+                
+                <p><strong>№4:</strong> Степени двойки</p>
+                <button onclick="testPowersOfTwo()">Показать степени</button>
+                
+                <p><strong>№5:</strong> Числа Фибоначчи</p>
+                <button onclick="testFibonacci()">Показать Фибоначчи</button>
+                
+                <div id="loopsGeneratorOutput" class="output"></div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>№1⊗jsSpItOL - Исправление ошибки</h2>
+            <div class="task">
+                <p><strong>Задача:</strong> Исправьте ошибку с однократным использованием итератора</p>
+                <button onclick="fixIteratorError()">Показать исправление</button>
+                <div id="oneTimeOutput" class="output"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>№1⊗jsSpItOb - Итератор объекта</h2>
+            <div class="task">
+                <p><strong>Задача:</strong> Итератор, возвращающий [ключ, значение]</p>
+                <button onclick="testObjectIterator()">Перебрать объект</button>
+                <div id="objectIteratorOutput" class="output"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>№1⊗jsSpItIOC - Итерируемый объект</h2>
+            <div class="task">
+                <p><strong>Задача:</strong> Создайте объект для for-of с {key, val}</p>
+                <button onclick="testIterableObject()">Перебрать итерируемый объект</button>
+                <div id="iterableObjectOutput" class="output"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>№1⊗jsSpItGCP - Вычисляемое свойство</h2>
+            <div class="task">
+                <p><strong>Задача:</strong> Перепишите предыдущую задачу с вычисляемым свойством</p>
+                <button onclick="testComputedProperty()">Проверить</button>
+                <div id="computedOutput" class="output"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>№1-3⊗jsSpItIIV, IIK, IIE - Встроенные итераторы</h2>
+            <div class="task">
+                <p><strong>values() на массиве:</strong></p>
+                <button onclick="testValuesOnArray()">values()</button>
+                
+                <p><strong>keys() на Map:</strong></p>
+                <button onclick="testKeysOnMap()">keys()</button>
+                
+                <p><strong>entries() на Set:</strong></p>
+                <button onclick="testEntriesOnSet()">entries()</button>
+                
+                <div id="builtinIteratorsOutput" class="output"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>№1⊗jsSpItSpr - Оператор spread</h2>
+            <div class="task">
+                <p><strong>Задача:</strong> Разложите объект спредом</p>
+                <button onclick="testSpreadOperator()">Разложить</button>
+                <div id="spreadOutput" class="output"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>№1⊗jsSpItStr - Сумма цифр строки</h2>
+            <div class="task">
+                <p><strong>Задача:</strong> Найдите сумму цифр строки '12345'</p>
+                <button onclick="sumOfDigitsInString()">Вычислить сумму</button>
+                <div id="stringSumOutput" class="output"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>№1⊗jsSpItDA - Сумма цифр числа</h2>
+            <div class="task">
+                <p><strong>Задача:</strong> Дано число 12345, найдите сумму цифр</p>
+                <button onclick="sumOfDigitsInNumber()">Вычислить сумму</button>
+                <div id="numberSumOutput" class="output"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>№1⊗jsSpItDEN - Нумерация ячеек таблицы</h2>
+            <div class="task">
+                <p><strong>Таблица для нумерации:</strong></p>
+                <table id="myTable">
+                    <tr><th>Имя</th><th>Возраст</th></tr>
+                    <tr><td>Иван</td><td>25</td></tr>
+                    <tr><td>Мария</td><td>30</td></tr>
+                    <tr><td>Петр</td><td>28</td></tr>
+                </table>
+                <button onclick="numberTableCells()">Пронумеровать ячейки</button>
+                <div id="tableNumberingOutput" class="output"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>№1⊗jsSpItDED - Получение id и value инпутов</h2>
+            <div class="task">
+                <div class="inputs-container">
+                    <input id="id1" value="111">
+                    <input id="id2" value="222">
+                    <input id="id3" value="333">
+                </div>
+                <button onclick="getInputData()">Получить данные инпутов</button>
+                <div id="domDataOutput" class="output"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function demonstrateIterable() {
+            let output = '<strong>Итерируемые объекты:</strong><br>';
+            
+            let arr = [1, 2, 3];
+            output += 'Массив: ';
+            for (let elem of arr) output += elem + ' ';
+            output += '<br>';
+            
+            let map = new Map();
+            map.set('a', 1);
+            map.set('b', 2);
+            map.set('c', 3);
+            output += 'Map: ';
+            for (let elem of map) output += `[${elem}] `;
+            output += '<br>';
+            
+            let set = new Set([1, 2, 3]);
+            output += 'Set: ';
+            for (let elem of set) output += elem + ' ';
+            output += '<br>';
+            
+            let str = 'abc';
+            output += 'Строка: ';
+            for (let elem of str) output += elem + ' ';
+            
+            document.getElementById('iterableOutput').innerHTML = output;
+        }
+        
+        function checkIteratorFunction() {
+            let arr = [1, 2, 3];
+            let map = new Map();
+            let str = 'abc';
+            
+            let output = '<strong>Наличие Symbol.iterator:</strong><br>';
+            output += `Массив: ${typeof arr[Symbol.iterator] === 'function' ? 'есть' : 'нет'}<br>`;
+            output += `Map: ${typeof map[Symbol.iterator] === 'function' ? 'есть' : 'нет'}<br>`;
+            output += `Строка: ${typeof str[Symbol.iterator] === 'function' ? 'есть' : 'нет'}`;
+            
+            document.getElementById('iteratorFnOutput').innerHTML = output;
+        }
+        
+        function iterateMap() {
+            let map = new Map();
+            map.set('a', 1);
+            map.set('b', 2);
+            map.set('c', 3);
+            
+            let iter = map[Symbol.iterator]();
+            let output = '<strong>Итератор Map:</strong><br>';
+            output += JSON.stringify(iter.next()) + '<br>';
+            output += JSON.stringify(iter.next()) + '<br>';
+            output += JSON.stringify(iter.next()) + '<br>';
+            output += JSON.stringify(iter.next());
+            
+            document.getElementById('iteratorInvOutput').innerHTML = output;
+        }
+        
+        function iterateNodeList() {
+            let div = document.createElement('div');
+            div.innerHTML = '<p>1</p><p>2</p><p>3</p>';
+            let elems = div.querySelectorAll('p');
+            let iter = elems[Symbol.iterator]();
+            
+            let output = '<strong>Итератор NodeList:</strong><br>';
+            output += JSON.stringify(iter.next()) + '<br>';
+            output += JSON.stringify(iter.next()) + '<br>';
+            output += JSON.stringify(iter.next()) + '<br>';
+            output += JSON.stringify(iter.next());
+            
+            document.getElementById('iteratorInvOutput').innerHTML = output;
+        }
+        
+        function iterateHTMLCollection() {
+            let div = document.createElement('div');
+            div.innerHTML = '<span>1</span><span>2</span><span>3</span>';
+            let elems = div.getElementsByTagName('span');
+            let iter = elems[Symbol.iterator]();
+            
+            let output = '<strong>Итератор HTMLCollection:</strong><br>';
+            output += JSON.stringify(iter.next()) + '<br>';
+            output += JSON.stringify(iter.next()) + '<br>';
+            output += JSON.stringify(iter.next()) + '<br>';
+            output += JSON.stringify(iter.next());
+            
+            document.getElementById('iteratorInvOutput').innerHTML = output;
+        }
+        
+        function* generator5to1() {
+            yield 5;
+            yield 4;
+            yield 3;
+            yield 2;
+            yield 1;
+        }
+        
+        function testGenerator5to1() {
+            let iter = generator5to1();
+            let output = '<strong>Генератор от 5 до 1:</strong><br>';
+            for (let i = 0; i < 6; i++) {
+                output += JSON.stringify(iter.next()) + '<br>';
+            }
+            document.getElementById('generatorOutput').innerHTML = output;
+        }
+        
+        function* generator10to0() {
+            for (let i = 10; i >= 0; i--) {
+                yield i;
+            }
+        }
+        
+        function testGenerator10to0() {
+            let iter = generator10to0();
+            let output = '<strong>Генератор от 10 до 0:</strong><br>';
+            let result = [];
+            for (let val of iter) {
+                result.push(val);
+            }
+            output += result.join(', ');
+            document.getElementById('loopsGeneratorOutput').innerHTML = output;
+        }
+        
+        function* decrementGenerator(start) {
+            while (start >= 0) {
+                yield start--;
+            }
+        }
+        
+        function testDecrementGenerator() {
+            let iter = decrementGenerator(10);
+            let output = '<strong>Уменьшение от 10 до 0:</strong><br>';
+            let result = [];
+            for (let val of iter) {
+                result.push(val);
+            }
+            output += result.join(', ');
+            document.getElementById('loopsGeneratorOutput').innerHTML = output;
+        }
+        
+        function* divideGenerator(start) {
+            while (start >= 1) {
+                yield start;
+                start /= 2;
+            }
+        }
+        
+        function testDivideGenerator() {
+            let iter = divideGenerator(100);
+            let output = '<strong>Деление 100 на 2:</strong><br>';
+            let result = [];
+            for (let val of iter) {
+                result.push(val);
+            }
+            output += result.join(' → ');
+            document.getElementById('loopsGeneratorOutput').innerHTML = output;
+        }
+        
+        function* powersOfTwo() {
+            let power = 1;
+            while (true) {
+                yield Math.pow(2, power);
+                power++;
+            }
+        }
+        
+        function testPowersOfTwo() {
+            let iter = powersOfTwo();
+            let output = '<strong>Степени двойки:</strong><br>';
+            let result = [];
+            for (let i = 0; i < 10; i++) {
+                result.push(iter.next().value);
+            }
+            output += result.join(', ');
+            document.getElementById('loopsGeneratorOutput').innerHTML = output;
+        }
+        
+        function* fibonacci() {
+            let a = 0, b = 1;
+            while (true) {
+                yield a;
+                [a, b] = [b, a + b];
+            }
+        }
+        
+        function testFibonacci() {
+            let iter = fibonacci();
+            let output = '<strong>Числа Фибоначчи:</strong><br>';
+            let result = [];
+            for (let i = 0; i < 15; i++) {
+                result.push(iter.next().value);
+            }
+            output += result.join(', ');
+            document.getElementById('loopsGeneratorOutput').innerHTML = output;
+        }
+        
+        function* numberGenerator() {
+            for (let i = 1; i <= 3; i++) {
+                yield i;
+            }
+        }
+        
+        function fixIteratorError() {
+            let output = '<strong>Исправление ошибки:</strong><br>';
+            output += 'Первый цикл: ';
+            for (let elem of numberGenerator()) {
+                output += elem + ' ';
+            }
+            output += '<br>Второй цикл: ';
+            for (let elem of numberGenerator()) {
+                output += elem + ' ';
+            }
+            document.getElementById('oneTimeOutput').innerHTML = output;
+        }
+        
+        function* objectIterator(obj) {
+            for (let key in obj) {
+                yield [key, obj[key]];
+            }
+        }
+        
+        function testObjectIterator() {
+            let obj = {a: 1, b: 2, c: 3};
+            let iter = objectIterator(obj);
+            let output = '<strong>Итератор объекта [key, value]:</strong><br>';
+            for (let elem of iter) {
+                output += JSON.stringify(elem) + '<br>';
+            }
+            document.getElementById('objectIteratorOutput').innerHTML = output;
+        }
+        
+        let iterableObj = {
+            a: 1,
+            b: 2,
+            c: 3,
+            [Symbol.iterator]: function*() {
+                for (let key in this) {
+                    if (this.hasOwnProperty(key) && key !== Symbol.iterator) {
+                        yield {key: key, val: this[key]};
+                    }
+                }
+            }
+        };
+        
+        function testIterableObject() {
+            let output = '<strong>Итерируемый объект {key, val}:</strong><br>';
+            for (let elem of iterableObj) {
+                output += JSON.stringify(elem) + '<br>';
+            }
+            document.getElementById('iterableObjectOutput').innerHTML = output;
+        }
+        
+        let computedObj = {
+            a: 1,
+            b: 2,
+            c: 3,
+            [Symbol.iterator]: function*() {
+                for (let key in this) {
+                    if (this.hasOwnProperty(key) && key !== Symbol.iterator) {
+                        yield {key: key, val: this[key]};
+                    }
+                }
+            }
+        };
+        
+        function testComputedProperty() {
+            let output = '<strong>Объект с вычисляемым свойством:</strong><br>';
+            for (let elem of computedObj) {
+                output += JSON.stringify(elem) + '<br>';
+            }
+            document.getElementById('computedOutput').innerHTML = output;
+        }
+        
+        function testValuesOnArray() {
+            let arr = ['a', 'b', 'c'];
+            let output = '<strong>values() на массиве:</strong><br>';
+            for (let val of arr.values()) {
+                output += val + ' ';
+            }
+            document.getElementById('builtinIteratorsOutput').innerHTML = output;
+        }
+        
+        function testKeysOnMap() {
+            let map = new Map();
+            map.set('a', 1);
+            map.set('b', 2);
+            map.set('c', 3);
+            let output = '<strong>keys() на Map:</strong><br>';
+            for (let key of map.keys()) {
+                output += key + ' ';
+            }
+            document.getElementById('builtinIteratorsOutput').innerHTML = output;
+        }
+        
+        function testEntriesOnSet() {
+            let set = new Set(['a', 'b', 'c']);
+            let output = '<strong>entries() на Set:</strong><br>';
+            for (let entry of set.entries()) {
+                output += JSON.stringify(entry) + ' ';
+            }
+            document.getElementById('builtinIteratorsOutput').innerHTML = output;
+        }
+        
+        let spreadObj = {
+            a: 1,
+            b: 2,
+            c: 3,
+            [Symbol.iterator]: function*() {
+                for (let key in this) {
+                    if (this.hasOwnProperty(key) && key !== Symbol.iterator) {
+                        yield this[key];
+                    }
+                }
+            }
+        };
+        
+        function testSpreadOperator() {
+            let arr = [...spreadObj];
+            let output = '<strong>Spread оператор:</strong><br>';
+            output += JSON.stringify(arr);
+            document.getElementById('spreadOutput').innerHTML = output;
+        }
+        
+        function sumOfDigitsInString() {
+            let str = '12345';
+            let sum = 0;
+            for (let digit of str) {
+                sum += Number(digit);
+            }
+            let output = `<strong>Строка '${str}':</strong><br>`;
+            output += `Сумма цифр: ${sum}`;
+            document.getElementById('stringSumOutput').innerHTML = output;
+        }
+        
+        function sumOfDigitsInNumber() {
+            let num = 12345;
+            let sum = [...String(num)].map(Number).reduce((acc, digit) => acc + digit, 0);
+            let output = `<strong>Число ${num}:</strong><br>`;
+            output += `Сумма цифр: ${sum}`;
+            document.getElementById('numberSumOutput').innerHTML = output;
+        }
+    
+        function numberTableCells() {
+            let table = document.getElementById('myTable');
+            let cells = table.querySelectorAll('td');
+            for (let [num, cell] of cells.entries()) {
+                cell.textContent += ` (${num + 1})`;
+            }
+            let output = '<strong>Ячейки пронумерованы!</strong><br>';
+            output += 'Каждой ячейке добавлен порядковый номер';
+            document.getElementById('tableNumberingOutput').innerHTML = output;
+        }
+        
+        function getInputData() {
+            let inputs = document.querySelectorAll('.inputs-container input');
+            let output = '<strong>Данные инпутов:</strong><br>';
+            for (let [num, {id, value}] of inputs.entries()) {
+                output += `Номер: ${num + 1}, id: ${id}, value: ${value}<br>`;
+            }
+            document.getElementById('domDataOutput').innerHTML = output;
+        }
+    </script>
+</body>
+</html>
